@@ -1,0 +1,91 @@
+<html lang="en">
+<head>
+    <title>Lab 4</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        body 
+        {
+            text-align: center;
+        }
+        .container, .navbar, .jumbotron 
+        {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="https://matthewtangcsi.github.io/index.html">My GitHub!</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="jumbotron">
+        <h3>Lab 4</h3>
+        <p>
+            We are implementing JavaScript into our HTML/CSS!
+            <hr> Making a basic ordering website.
+        </p>
+    </div>
+</div>
+<script>
+    var name;
+    var item;
+    var numItems;
+    now = new Date();
+    time = now.getHours();
+    window.alert("Welcome to Matt's Store!")
+</script>
+<script>
+    name = window.prompt("Please enter your name.");
+    item = window.prompt("What would you like to order today?")
+    quantity = window.prompt("And how much of " + item + " do you want?")
+</script>
+<script>
+    if (time < 12) 
+    {
+        document.write("<h3> Good Morning, " + name + "! Thanks for stopping by!")
+    }
+    else if (time < 18) 
+    {
+        document.write("<h3> Good afternoon, " + name + "! Thanks for stopping by!")
+    }
+    else 
+    {
+        document.write("<h3> Good evening, " + name + "! Thanks for stopping by!")
+    }
+</script>
+<script>
+    document.write("<h2> You ordered: ")
+    if (quantity <= 1 && quantity < 100) 
+    {
+        document.write(" " + item) // single
+        eta();
+    }
+    else if (quantity > 1 && quantity < 100) 
+    {
+        document.write("<p1> " + quantity + "<p1>  " + item + "<p1>") // multiple
+        eta();
+    }
+    else 
+    {
+        document.write("<h2> Can't go past 99!");  // if < 99, order exceeded and too much
+    }
+    function eta() 
+    {
+        document.write("<h3> You placed your order on: " + now)
+        var date = new Date();
+        date.setDate(date.getDate() + 7);
+        document.write("<h3> Delivery expected: " + date);
+    }
+</script>
+<br><br><br><br><br><br><br><br><br><br> <h5> Reload to play again, hope you had fun! :D</h5>
+</body>
+</html>
