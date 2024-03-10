@@ -1,0 +1,118 @@
+<!--
+
+Assignment Problem:
+A Website would be useless without a good registration page, ours won’t be great but at least it will have a registration page (kind of). 
+Create a one-page webpage for your product (whatever you want that product to be) and take in a User’s First Name, Last Name, Email Address, 
+Password & Date of Birth. Then show all the information back to the customer with a registration successful message & all their information. 
+(Replace their password with the same number of characters but all stars) i.e. (“123 == ***” we care about security after all….)
+
+Requirements: 
+    Create A One-page website with a form (Use concepts from our previous labs like bootstrap to make it look nice) 
+    Read Input from that form into a User Object.
+    Update the Password to asterisks.
+    Validate the following guidelines.
+    All fields must be present.
+    Passwords must contain a special character (in our case ! and ?)
+    Write to the DOM & Present Registration Successful or failed based off the cases. As well as the information from the User Object
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Lab 5</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="https://matthewtangcsi.github.io/index.html">My GitHub!</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <form id="userForm">
+        First Name = <input type="text" id="fname" required> <br>
+        Last Name = <input type="text" id="lname" required> <br>
+        Email Address = <input type="email" id="email" required> <br>
+        Date of Birth = <input type="text" id="dob" placeholder="MM/DD/YYYY" required> <br>
+        Password = <input type="password" id="password" required> <br>
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    <p id="result"></p>
+
+    <script>
+        function passReq(password) 
+        {
+            var specialChars = ['!', '?', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '='];
+            var hasSpecialChar = false;
+
+            for (var i = 0; i < password.length; i++) {
+                if (specialChars.includes(password[i])) {
+                    hasSpecialChar = true;
+                    break;
+                }
+            }
+
+            if (hasSpecialChar) 
+            {
+                var asterisk = '';
+                for (var i = 0; i < password.length; i++)
+                 {
+                    asterisk += '*';
+                 }
+                return asterisk;
+            } 
+            
+            else 
+                {
+                    return 'Special character not detected in this password!';
+                }
+        }
+
+        function submitForm() 
+        {
+            var fname = document.getElementById("fname").value;
+            var lname = document.getElementById("lname").value;
+            var email = document.getElementById("email").value;
+            var dob = document.getElementById("dob").value;
+            var password = document.getElementById("password").value;
+
+            if (fname && lname && email && dob && password) 
+            {
+                var asterisk = passReq(password);
+
+                if (asterisk !== 'Password must contain a special character') 
+                {
+                    var result = "<b>Registration successful!</b><br>";
+                    result += "First Name: " + fname + "<br>";
+                    result += "Last Name: " + lname + "<br>";
+                    result += "Email Address: " + email + "<br>";
+                    result += "Date of Birth: " + dob + "<br>";
+                    result += "Password: " + asterisk;
+
+                    document.getElementById("result").innerHTML = result;
+                }
+                 
+                else 
+                    {
+                        document.getElementById("result").innerHTML = asterisk;
+                    }
+            } 
+            
+            else 
+                {
+                    document.getElementById("result").innerHTML = "<b>Registration failed. :(</b>";
+                }
+        }
+    </script>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br<br><br><br> <h5> Reload to play again, hope you had fun! :D</h5>
+</body>
+</html>
