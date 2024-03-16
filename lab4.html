@@ -1,3 +1,24 @@
+<!-- 
+
+Assignment Problem:
+You are Creating an Ordering website for your store, Each customer can only 
+order one type of item and any quantity of that item between 1-99. After your 
+customer orders they should be provided with a greeting, what they ordered, how 
+much they ordered and when it will arrive.
+Requirements: 
+    1. Alert the customer to welcome them to the store when they open the link.
+    2. Via Prompt ask the customer there:
+        a. Name
+        b. Item Requested
+        . Number of Items
+        3. Greet The Customer Time Appropriately on the HTML 
+        a. (i.e Good Afternoon Professor Bruno, Thank you for Ordering!)
+        4. Take all the Data and Present it on the website.
+        5. Give the customer an expected arrival date (exactly 7 days from when they placed the order)
+
+-->
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Lab 4</title>
@@ -5,87 +26,56 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <style>
-        body 
-        {
-            text-align: center;
-        }
-        .container, .navbar, .jumbotron 
-        {
-            text-align: left;
-        }
-    </style>
 </head>
 <body>
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="https://matthewtangcsi.github.io/index.html">My GitHub!</a></li>
+            </ul>
         </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="https://matthewtangcsi.github.io/index.html">My GitHub!</a></li>
-        </ul>
-    </div>
-</nav>
-<div class="container">
-    <div class="jumbotron">
-        <h3>Lab 4</h3>
-        <p>
-            We are implementing JavaScript into our HTML/CSS!
-            <hr> Making a basic ordering website.
-        </p>
-    </div>
-</div>
-<script>
-    var name;
-    var item;
-    var quantity;
-    now = new Date();
-    time = now.getHours();
-    window.alert("Welcome to Matt's Store!")
-</script>
-<script>
-    name = window.prompt("Please enter your name.");
-    item = window.prompt("What would you like to order today?")
-    quantity = window.prompt("And how much of " + item + " do you want?")
-</script>
-<script>
-    if (time < 12) 
-    {
-        document.write("<h3> Good Morning, " + name + "! Thanks for stopping by!")
-    }
-    else if (time < 18) 
-    {
-        document.write("<h3> Good afternoon, " + name + "! Thanks for stopping by!")
-    }
-    else 
-    {
-        document.write("<h3> Good evening, " + name + "! Thanks for stopping by!")
-    }
-</script>
-<script>
-    document.write("<h2> You ordered: ")
-    if (quantity <= 1 && quantity < 100) 
-    {
-        document.write(" " + item) // single
+    </nav>
+    <script>
+        window.alert("Welcome to Matt's Store!");
+        var currentTime = new Date().getHours();
+        let username = window.prompt("What is your name?");
+        let product = window.prompt("Hello " + username + "! It is currently " + new Date().toLocaleTimeString() + ". What are you ordering today?"); //Turns the time in Date into a string
+        let amount = window.prompt("And how much of " + product + " would you like to have? The amount must be between 1-99: ");
+
+        function basket() 
+        {
+            if (amount == 1) 
+            {
+                document.write("<h3>You ordered: " + amount + " " + product);
+            } 
+            
+            else 
+            {
+                document.write("<h3>You ordered: " + amount + " " + product + "s"); 
+            }
+        }
+
+        function atm() 
+        {
+            var greeting = currentTime < 12 ? "Good Morning," : currentTime < 18 ? "Good Afternoon," : "Good Evening,";
+            document.write("<h3>" + greeting + " " + username + "! Thanks for shopping in my store!</h3>");
+        }
+
+        function eta() 
+        {
+            var now = new Date();
+            document.write("<h3>You placed your order on: " + now.toLocaleString() + "</h3>"); //Turns the time and date into a string
+            var deliveryDate = new Date(now);
+            deliveryDate.setDate(now.getDate() + 7);
+            document.write("<h3>Delivery expected by: " + deliveryDate.toLocaleString() + "</h3>");
+        }
+
+        basket();
+        atm(); 
         eta();
-    }
-    else if (quantity > 1 && quantity < 100) 
-    {
-        document.write("<p1> " + quantity + "<p1>  " + item + "<p1>") // multiple
-        eta();
-    }
-    else 
-    {
-        document.write("<h2> Can't go past 99!");  // if < 99, order exceeded and too much
-    }
-    function eta() 
-    {
-        document.write("<h3> You placed your order on: " + now)
-        var date = new Date();
-        date.setDate(date.getDate() + 7);
-        document.write("<h3> Delivery expected: " + date);
-    }
-</script>
-<br><br><br><br><br><br><br><br><br><br> <h5> Reload to play again, hope you had fun! :D</h5>
+    </script>
 </body>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> <h5> Reload to play again, hope you had fun! :D</h5>
 </html>

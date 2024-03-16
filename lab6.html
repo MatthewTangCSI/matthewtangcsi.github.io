@@ -1,0 +1,58 @@
+<!-- 
+
+Requirements: 
+1. Create a button on the page that will trigger the REST API call
+2. Consume REST Api using GET 
+a. https://brianobruno.github.io/cats.json   
+3. Sort the facts array by factId so that factid 1 is first and factid 5 is last
+4. Update a picture that you have previously added to the page with the picture 
+link that is returned by the API Call
+Submission Info:
+1. Github Commit (your code) and Github.io (viewable) link must be submitted 
+on blackboard.
+2. Submissions of uploaded HTML will not be accepted.
+3. Make sure it works on github.io before submitting!
+4. Please do not submit other classmates work & don’t just copy and paste the 
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Lab 6</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="https://matthewtangcsi.github.io/index.html">My GitHub!</a></li>
+            </ul>
+        </div>
+    </nav>
+
+<body>
+
+<script>
+async function usingGET()
+{
+        const api = "https://brianobruno.github.io/cats.json"
+        const options =
+           {
+                 method:"GET",
+           };
+        const response = await
+        fetch(url,options);
+        const result = await
+        response.text();
+        const myObj = JSON.parse(result)
+}
+
+</script>
+
+</body>
