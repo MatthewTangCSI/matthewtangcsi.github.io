@@ -35,24 +35,57 @@ on blackboard.
             </ul>
         </div>
     </nav>
+    <script>
+       async function asyncGET()
+        {
+            const url = "https://brianobruno.github.io/cats.json";
+            const options = 
+                {
+                method: "GET",
+                };
+            const response = await 
+            fetch(url, options);
+            const result = await 
+            response.text();
+            const RESTdata = JSON.parse(result);
+            RESTdata.facts.sort((a,b) => a.factId - b.factId);
 
-<body>
-
-<script>
-async function usingGET()
-{
-        const api = "https://brianobruno.github.io/cats.json"
-        const options =
-           {
-                 method:"GET",
-           };
-        const response = await
-        fetch(url,options);
-        const result = await
-        response.text();
-        const myObj = JSON.parse(result)
-}
-
-</script>
-
+            for (let i = 0; i < RESTdata.facts.length; i++) 
+            {
+                document.getElementById("factid" + (i + 1)).innerHTML = RESTdata.facts[i].factId;
+                document.getElementById("fact" + (i + 1)).innerHTML = RESTdata.facts[i].text;
+            }
+            document.getElementById("photo").src = RESTdata.catPhoto;
+zz
+    }
+    </script>
+        <table>
+            <tr>
+                <th>factid</th>
+                <th>fact</th>
+            </tr>
+            <tr>
+                <td id="factid1"></td>
+                <td id="fact1"></td>
+            </tr>
+            <tr>
+                <td id="factid2"></td>
+                <td id="fact2"></td>
+            </tr>
+            <tr>
+                <td id="factid3"></td>
+                <td id="fact3"></td>
+            </tr>
+            <tr>
+                <td id="factid4"></td>
+                <td id="fact4"></td>
+            </tr>
+            <tr>
+                <td id="factid5"></td>
+                <td id="fact5"></td>
+            </tr>
+        </table>
+    <img id="photo" src="https://i.ytimg.com/vi/hA25G8QcdSQ/maxresdefault.jpg">
+    <button onclick="asyncGET()">Click Here</button>
 </body>
+</html>
