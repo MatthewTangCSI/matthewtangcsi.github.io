@@ -1,0 +1,142 @@
+<!--
+
+Integration with Multiple Endpoints: 
+Integrate with at least two different endpoints of the chosen API. For example, 
+if you select a stock market API, you might display the top movers for the day on one page and allow users to view 
+detailed information about a specific stock on another page.
+
+Multiple Pages: 
+Your website must consist of multiple pages , for example in a stock app , 
+your main page may show all stocks which have moved the most in one day , while clicking on a stock will give in depth detail
+
+Functionality:
+Fetch data from the chosen API using Vanilla JavaScript's fetch() or similar methods.
+Display the retrieved data dynamically on your web pages.
+Implement functionality to interact with the data, such as filtering, searching, or sorting.
+Handle errors gracefully and provide appropriate feedback to the user.
+
+Resources:
+https://www.dnd5eapi.co/
+https://5e-bits.github.io/docs/api
+https://5e-bits.github.io/docs/api/get-a-class-by-index
+https://5e-bits.github.io/docs/api/get-a-trait-by-index
+https://5e-bits.github.io/docs/api/get-a-subrace-by-index
+https://5e-bits.github.io/docs/api/get-a-race-by-index
+https://5e-bits.github.io/docs/api/get-a-subrace-by-index
+★ https://archive.org/stream/dnd5srd/SRD-OGL_V1.1_djvu.txt
+
+https://5e-bits.github.io/docs/api/get-a-magic-school-by-index
+https://5e-bits.github.io/docs/api/get-a-spell-by-index
+https://5e-bits.github.io/docs/api/get-spells-available-for-a-class
+
+https://5e-bits.github.io/docs/api/get-a-condition-by-index
+https://5e-bits.github.io/docs/api/get-a-damage-type-by-index
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Final Project DnD5E REST API</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="https://matthewtangcsi.github.io/index.html">My GitHub!</a></li>
+                <li><a href="index.html">Character Creator</a></li>
+            </ul>
+    <script>
+        async function GETData(endpoint)
+        {
+            const baseUrl = 'https://www.dnd5eapi.co/api';
+            const url = `${baseUrl}/${endpoint}`;
+            const options = 
+            {
+                method: "GET",
+            };
+            const response = await fetch(url, options);
+            if (!response.ok)
+            {
+                alert('Network not found :()');
+            }
+            return response.json();
+        }
+
+        async function populateLists()
+        {
+            const damageTypesData = await GETData('damage-types');
+            const conditionsData = await GETData('conditions');
+            const damageTypesList = document.getElementById('damageTypesList');
+            const conditionsList = document.getElementById('conditionsList');
+
+            damageTypesData.results.forEach(damageType =>
+            {
+                let listType = document.createElement('li');
+                listType.textContent = damageType.name;
+                damageTypesList.appendChild(listType);
+            });
+
+            conditionsData.results.forEach(condition =>
+            {
+                let listType = document.createElement('li');
+                listType.textContent = condition.name;
+                conditionsList.appendChild(listType);
+            });
+        }
+
+        async function searchInfo()
+        {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const searchResult = document.getElementById('searchResult');
+            searchResult.innerHTML = '';
+            if (!input)
+            {
+                return;
+            }
+            try
+            {
+                const info = await GETData(`damage-types/${input}`) || await GETData(`conditions/${input}`);
+                if (info.desc)
+                {
+                    searchResult.innerHTML = `<strong>Description:</strong> ${info.desc.join(' ')}`;
+                }
+                else
+                {
+                    searchResult.textContent = 'No description found :().';
+                }
+            }
+            catch (error)
+            {
+                searchResult.textContent = 'Ailment not found :().';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', populateLists);
+    </script>
+</head>
+<body>
+    <h2>DnD Conditions and Damage Types</h2>
+    <input type="text" id="searchInput" placeholder="What damage type or ailment would you like to learn?" style="width: 50%;">
+    <button onclick="searchInfo()">Confirm</button>
+    <div id="searchResult" style="margin-top: 20px;"></div>
+
+    <table>
+        <tr>
+            <td>
+                <h3>Damage Types</h3>
+                <ul id="damageTypesList"></ul>
+            </td>
+            <td>
+                <h3>Conditions</h3>
+                <ul id="conditionsList"></ul>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
