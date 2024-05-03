@@ -73,7 +73,7 @@ https://5e-bits.github.io/docs/api/get-a-damage-type-by-index
             const response = await fetch(url, options);
             if (!response.ok)
             {
-                alert('Network not found :()');
+                alert('');
             }
             return response.json();
         }
@@ -111,15 +111,19 @@ https://5e-bits.github.io/docs/api/get-a-damage-type-by-index
             }
             try
             {
-                const info = await GETData(`damage-types/${input}`) || await GETData(`conditions/${input}`);
-                if (info.desc)
+                const damageResponse = await GETData(`damage-types/${input}`);
+                if (damageResponse && damageResponse.desc)
                 {
-                    searchResult.innerHTML = `Description: ${info.desc.join(' ')}`;
+                    searchResult.innerHTML = `Description: ${damageResponse.desc.join(' ')}`;
+                    return;
                 }
-                else
+                const conditionResponse = await GETData(`conditions/${input}`);
+                if (conditionResponse && conditionResponse.desc)
                 {
-                    searchResult.textContent = 'No description found :().';
+                    searchResult.innerHTML = `Description: ${conditionResponse.desc.join(' ')}`;
+                    return;
                 }
+                searchResult.textContent = 'No description found :().';
             }
             catch (error)
             {
@@ -144,7 +148,7 @@ https://5e-bits.github.io/docs/api/get-a-damage-type-by-index
                 <ul id="damageTypesList"></ul>
             </td>
             <td>
-                <h3>Conditions</h3>
+                <h3>  Conditions</h3>
                 <ul id="conditionsList"></ul>
             </td>
         </tr>
